@@ -1,0 +1,100 @@
+.task {
+  background: var(--gray-500);
+  padding: 1rem;
+  border-radius: 8px;
+
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.task + .task {
+  margin-top: 0.75rem;
+}
+
+.container {
+  display: block;
+  position: relative;
+  padding-left: calc(1.125rem + 0.75rem);
+  cursor: pointer;
+  font-size: 0.875rem;
+  color: var(--gray-100);
+}
+
+.container input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer; 
+  height: 0;
+  width: 0;
+}
+
+/* Checkbox customizado */
+.checkmark {
+  position: absolute;
+  top: 0.25rem;
+  left: 0;
+  height: 1.125rem;
+  width: 1.125rem;
+  border-radius: 50%;
+  border: 0.125rem solid var(--blue-300);
+  transition: background-color 0.2s, border-color 0.2s;
+}
+
+/* Cor de fundo hover */
+.container:hover input ~ .checkmark {
+  border-color: var(--blue-500);
+  background: rgba(30, 111, 159, 0.2);
+}
+
+/* Quando checkbox e clicado */
+.container input:checked ~ .checkmark {
+  background: var(--purple-500);
+  border: 0;
+  transition: background-color 0.2s;
+}
+
+.container input:checked:hover ~ .checkmark {
+  background: var(--purple-300);
+  border: 0;
+}
+
+/* Criar o ícone de check, escondido quando não estiver selecionado */
+.container .checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+  left: 7px;
+  top: 4px;
+  width: 3px;
+  height: 6px;
+  border: solid var(--gray-100);
+  border-width: 0 2px 2px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+  transition: display 0.2s;
+}
+
+/* Exibir o ícone quando selecionado */
+.container input:checked ~ .checkmark:after {
+  display: block;
+}
+
+.deleteTask {
+  border: none;
+  border-radius: 8px;
+  background: transparent;
+  cursor: pointer;
+  padding: 0.5rem;
+  line-height: 0;
+  color: var(--gray-300);
+  margin-top: -0.25rem;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.deleteTask:hover {
+  background: var(--gray-400);
+  color: var(--red-500);
+}
