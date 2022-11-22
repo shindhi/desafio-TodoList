@@ -20,10 +20,9 @@ export function Task({ task, onMarkTask, onDeleteTask }: ComponentTaskProps) {
     onDeleteTask(task.id)
   }
 
-  // TODO: Taxar o texto da label, qyando a tarefa for marcada como finalizada
   return (
     <div className={styles.task}>
-      <label className={styles.container}>
+      <label className={`${styles.container} ${task.checked && styles.checked}`}>
         {task.value}
         <input type="checkbox" onChange={handleMarkTask} checked={task.checked} />
         <span className={styles.checkmark}></span>
@@ -36,5 +35,5 @@ export function Task({ task, onMarkTask, onDeleteTask }: ComponentTaskProps) {
         <Trash />
       </button>
     </div>
-  );
+  )
 }

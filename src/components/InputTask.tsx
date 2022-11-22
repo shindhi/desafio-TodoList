@@ -17,10 +17,12 @@ export interface TaskProps {
 export function InputTask() {
   const [tasks, setTasks] = useState<TaskProps[]>([])
   const [newTask, setNewTask] = useState('')
-  const [completedTasks, setCompletedTasks] = useState(0)
 
   function handleCreateNewTask(event: FormEvent) {
     event.preventDefault();
+
+    if (newTask === '')
+      return
 
     const newTaskData: TaskProps = {
       id: uuidv4(),
@@ -31,26 +33,37 @@ export function InputTask() {
     setTasks([...tasks, newTaskData])
     setNewTask('')
   }
-
+ 
   function handleNewTaskChange(event: ChangeEvent<HTMLInputElement>) {
-    setNewTask(event.target.value)
+    setNewTask(event.target.value)  
   }
 
   function markTask(taskId: string) {
-    const updateStatusTask = tasks.map(task => {
-      if (task.id === taskId) {
-        return { ...task, checked: !task.checked }
-      }
-      
-      return task
+    setTasks((state) => {
+      const newState = state.map(task => {
+        if (task.id === taskId) {
+          return {
+            ...task,
+            checked: !task.checked
+          }
+        }
+
+        return task
+      })
+
+      return newState
     })
 
+    countTasksCompleted()
+  }
+
+  function countTasksCompleted() {
     const initialValue = 0
-    const countTasksCompleted = updateStatusTask
+    const countTasksCompleted = tasks
       .filter(task => task.checked === true)
-      .reduce((accumulator, currentValue) => accumulator + 1, initialValue)
-    setCompletedTasks(countTasksCompleted)
-    setTasks(updateStatusTask)
+      .reduce((acc) => acc + 1, initialValue)
+
+    return countTasksCompleted
   }
    
   function deleteTask(taskId: string) {
@@ -83,7 +96,7 @@ export function InputTask() {
         </strong>
 
         <strong className={styles.completed}>
-          Concluídas <span>{completedTasks} de {tasks.length}</span>
+          Concluídas <span>{countTasksCompleted()} de {tasks.length}</span>
         </strong>
       </div>
 

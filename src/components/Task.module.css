@@ -30,6 +30,11 @@
   width: 0;
 }
 
+.container.checked {
+  text-decoration: line-through;
+  color: var(--gray-300);
+}
+
 /* Checkbox customizado */
 .checkmark {
   position: absolute;
