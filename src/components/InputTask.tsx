@@ -74,7 +74,6 @@ export function InputTask() {
     setTasks(taskWithoutTaskSelected)
   }
 
-  // TODO: Bloquear o botão de Criar Tarefa, caso o campo de input esteja vazio
   return (
     <article>
       <form onSubmit={handleCreateNewTask} className={styles.todoForm}>
